@@ -37,6 +37,7 @@ client.on('message', message => {
 					'**$events [day]**\nlists all events for specified day\n\n'+
 					'**$enlist**\nenlist for any team in guild arena\n\n'+
 					'**$enlist [team]**\nenlist for specific team in guild arena\n\n'+
+					'**$unenlist**\nunenlist for guild arena\n\n'+
 					'**$enlistview**\nview all players currently enlisted for guild arena\n\n'+
 					'**$guides**\nlists all guides\n\n'+
 					'**$guides [class]**\nlists all guides for specific class\n\n';
@@ -84,7 +85,7 @@ client.on('message', message => {
 				var embed = new Discord.RichEmbed()
 					.setTitle('Events for today')
 					.setDescription(eventsList);
-				message.channel.send('Today gs **' +  days[today] + '**. Here\'s a list of all events for the day.', embed);
+				message.channel.send('Today is **' +  days[today] + '**. Here\'s a list of all events for the day.', embed);
         break;
 
       case 'enlist':
@@ -95,26 +96,177 @@ client.on('message', message => {
 					var team1 = Object.keys(enlisted['1']);
 					var team2 = Object.keys(enlisted['2']);
 					var team3 = Object.keys(enlisted['3']);
+					var team = '0' 
 					var officers = message.guild.roles.find(role => role.name === 'officer');
 					if (noTeam.indexOf(message.author.id) !== -1 || team1.indexOf(message.author.id) !== -1 || team2.indexOf(message.author.id) !== -1 || team3.indexOf(message.author.id) !== -1) {
 						message.channel.send('You have already enlisted for guild arena. To view the teams, use the command **$enlistview**.');
 					} else {
-						enlisted['0'][message.author.id] = message.member.displayName; 
-						enlisted = JSON.stringify({'enlisted': enlisted });
-						fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
-							message.channel.send('You have successfully enlisted for guild arena. To view the teams, use the command **$enlistview**.');
-							var offChannel = client.guilds.get(config.guildId).channels.get(offChannelId);
-							offChannel.send('**[ IMPORTANT ]**\n**' + message.member.displayName + '** has enlisted for guild arena. To view the teams, use the command **$enlistview**. ' + officers.toString()); 
-						});
+						if (args.length > 1) {
+							if (args[1] == '1') {
+								if (team1.length < 6) {
+									team = '1';
+								} else {
+									message.channel.send('The team you have selected is full! You will be enlisted but will not be assigned a team...');
+								}
+							} else if (args[1] == '2') {
+								if (team2.length < 6) {
+									team = '2';
+								} else {
+									message.channel.send('The team you have selected is full! You will be enlisted but will not be assigned a team...');
+								}
+							} else if (args[1] == '3') {
+								if (team3.length < 6) {
+									team = '3';
+								} else {
+									message.channel.send('The team you have selected is full! You will be enlisted but will not be assigned a team...');
+								}
+							} 
 					}
+					enlisted[team][message.author.id] = message.member.displayName; 
+					enlisted = JSON.stringify({'enlisted': enlisted });
+					fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
+						message.channel.send('You have successfully enlisted for guild arena. To view the teams, use the command **$enlistview**. To unenlist, use the command **$unenlist**.');
+						var offChannel = client.guilds.get(config.guildId).channels.get(offChannelId);
+						offChannel.send('**[ IMPORTANT ]**\n**' + message.member.displayName + '** has enlisted for guild arena. To view the teams, use the command **$enlistview**. ' + officers.toString()); 
+					});
+				}
 
-				});
 				//var today = new Date().getDay();
 				//if (today == 2 || today == 4) {
 				//} else {
 				//	message.channel.send('There is no guild arena today. You may only enlist on Tuesday and Thursday.', embed);
 				//}
+				});
         break;
+			case 'enlistmove':
+				var officer = message.guild.roles.find(role => role.name === 'officer');
+				if (message.member.roles.has(officer.id)) {
+					if (args.length < 3) {
+							message.channel.send('Invalid syntax. The correct usage of $enlistmove is: **$enlistmove [name] [team]** (e.g. $enlistmove Aϙᴜᴀ 2)');
+							break;
+					}
+					var user = args[1];
+					var team = args[2];
+					fs.readFile(config.guild_arena.enlisted, 'utf8', function(err, data) {
+						var file = JSON.parse(data); 
+						var enlisted = file['enlisted'];
+						var noTeam = Object.keys(enlisted['0']);
+						var team1 = Object.keys(enlisted['1']);
+						var team2 = Object.keys(enlisted['2']);
+						var team3 = Object.keys(enlisted['3']);
+
+						if (team == '1' && team1.length >= 6) {
+								message.channel.send('The team you have selected is full!');
+								return;
+						} else if (team == '2' && team2.length >= 6) {
+								message.channel.send('The team you have selected is full!');
+								return;
+						} else if (team == '3' && team3.length >= 6) {
+								message.channel.send('The team you have selected is full!');
+								return;
+						} else if (team != '1' && team != '2' && team != '3'){
+							message.channel.send('Invalid team number.');
+							return;
+						}
+
+						var found = false;
+
+						//CHECK NO TEAM
+						noTeam.forEach(function(id) {
+							if (enlisted['0'][id] == user) {
+								found = true;
+								delete enlisted['0'][id];
+								enlisted[team][id] = user;
+								enlisted = JSON.stringify({'enlisted': enlisted });
+								fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
+									message.channel.send('You have successfully moved ' + user + 'to team ' + team + '. To view the teams, use the command **$enlistview**.');
+								});
+								return;
+							}
+						});
+
+						//CHECK TEAM 1
+						team1.forEach(function(id) {
+							if (enlisted['1'][id] == user) {
+								found = true;
+								delete enlisted['1'][id];
+								enlisted[team][id] = user;
+								enlisted = JSON.stringify({'enlisted': enlisted });
+								fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
+									message.channel.send('You have successfully moved ' + user + 'to team ' + team + '. To view the teams, use the command **$enlistview**.');
+								});
+								return;
+							}
+						});
+
+						//CHECK TEAM 2
+						team2.forEach(function(id) {
+							if (enlisted['2'][id] == user) {
+								found = true;
+								delete enlisted['2'][id];
+								enlisted[team][id] = user;
+								enlisted = JSON.stringify({'enlisted': enlisted });
+								fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
+									message.channel.send('You have successfully moved ' + user + 'to team ' + team + '. To view the teams, use the command **$enlistview**.');
+								});
+								return;
+							}
+						});
+
+						//CHECK TEAM 3
+						team3.forEach(function(id) {
+							if (enlisted['3'][id] == user) {
+								found = true;
+								delete enlisted['3'][id];
+								enlisted[team][id] = user;
+								enlisted = JSON.stringify({'enlisted': enlisted });
+								fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
+									message.channel.send('You have successfully moved ' + user + 'to team ' + team + '. To view the teams, use the command **$enlistview**.');
+								});
+								return;
+							}
+						});
+
+						if (!(found)) {
+							message.channel.send('The user you have entered \''+ user + '\' does not exist or has not yet enlisted for guild arena.');
+						}
+					});
+				} else {
+					message.channel.send('Oops. Only officers may use this command. To switch teams, please inform any of the officers.');
+				}
+				break;
+
+			case 'unenlist':
+				fs.readFile(config.guild_arena.enlisted, 'utf8', function(err, data) {
+					var file = JSON.parse(data); 
+					var enlisted = file['enlisted'];
+					var noTeam = Object.keys(enlisted['0']);
+					var team1 = Object.keys(enlisted['1']);
+					var team2 = Object.keys(enlisted['2']);
+					var team3 = Object.keys(enlisted['3']);
+					var officers = message.guild.roles.find(role => role.name === 'officer');
+					if (noTeam.indexOf(message.author.id) !== -1 || team1.indexOf(message.author.id) !== -1 || team2.indexOf(message.author.id) !== -1 || team3.indexOf(message.author.id) !== -1) {
+						if (noTeam.indexOf(message.author.id) !== -1) {
+							delete enlisted['0'][message.author.id];
+						} else if (team1.indexOf(message.author.id) !== -1) {  
+							delete enlisted['1'][message.author.id];
+						} else if (team2.indexOf(message.author.id) !== -1) {
+							delete enlisted['2'][message.author.id];
+						} else if (team3.indexOf(message.author.id) !== -1) {
+							delete enlisted['3'][message.author.id];
+						}
+						enlisted = JSON.stringify({'enlisted': enlisted });
+						fs.writeFile(config.guild_arena.enlisted, enlisted, 'utf8', function() {
+							message.channel.send('You have been unenlisted for guild arena. To view the teams, use the command **$enlistview**.');
+							var offChannel = client.guilds.get(config.guildId).channels.get(offChannelId);
+							offChannel.send('**[ IMPORTANT ]**\n**' + message.member.displayName + '** has unenlisted for guild arena. To view the teams, use the command **$enlistview**. ' + officers.toString()); 
+						});
+					} else {
+						message.channel.send('You are currently not enlisted for guild arena. To view the teams, use the command **$enlistview**.');
+					}
+
+				});
+				break;
 
       case 'enlistview':
 				fs.readFile(config.guild_arena.enlisted, 'utf8', function(err, data) {
@@ -131,7 +283,7 @@ client.on('message', message => {
 							team1List += '• ' + team1[id] + '\n';
 						});
 					} else {
-						team1List += 'No player has been assigned to team 1.'	
+						team1List += 'No player has been assigned to team 1.\n'	
 					}
 
 					//TEAM 2
@@ -143,7 +295,7 @@ client.on('message', message => {
 							team2List += '• ' + team2[id] + '\n';
 						});
 					} else {
-						team2List += 'No player has been assigned to team 2.'	
+						team2List += 'No player has been assigned to team 2.\n'	
 					}
 
 					//TEAM 3
@@ -155,7 +307,7 @@ client.on('message', message => {
 							team3List += '• ' + team3[id] + '\n';
 						});
 					} else {
-						team3List += 'No player has been assigned to team 3.'	
+						team3List += 'No player has been assigned to team 3.\n'	
 					}
 
 					//NO TEAM ASSIGNED
@@ -175,9 +327,9 @@ client.on('message', message => {
 						message.channel.send('Nobody has enlisted for guild arena yet. To enlist, use the command **$enlist**.')
 					} else {
 						var embed = new Discord.RichEmbed()
-							.setDescription(team1List + '\n\n' + team2List + '\n\n' + team3List + '\n\n' + noTeamList)
+							.setDescription(team1List + '\n' + team2List + '\n' + team3List + '\n' + noTeamList)
 							.setColor(0x5f44d1);
-						message.channel.send('Here\'s a list of enlisted players for guild arena. To enlist, use the command **$enlist**.', embed); 
+						message.channel.send('Here are all of the players who have enlisted for guild arena. To enlist, use the command **$enlist**. To unenlist, use the command **$unenlist**.', embed); 
 					}
 				});
         break;
