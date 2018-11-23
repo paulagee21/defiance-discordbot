@@ -1,0 +1,14 @@
+{
+  "name": "defiance-discord-bot",
+  "version": "1.0.0",
+  "description": "DEFIANCE [S93] BOT",
+  "main": "bot.js",
+  "author": "aqua/polarbear",
+  "dependencies": {
+    "cron": "^1.5.0",
+    "discord.io": "^2.5.3",
+    "discord.js": "^11.4.2",
+    "node-cron": "^2.0.3",
+    "winston": "^3.1.0"
+  }
+}

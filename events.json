@@ -1,0 +1,139 @@
+{
+  "1": {
+    "01:00PM": {
+      "title": "HORSE RACING",
+      "image": "https://i.imgur.com/qThpHAa.jpg",
+      "content": "Giddy up! Horse racing starts in 15 minutes."
+    }, "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    },"07:00PM": {
+      "title": "HORSE RACING",
+      "image": "https://i.imgur.com/qThpHAa.jpg",
+      "content": "Giddy up! Horse racing starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD RIDDLE PARTY",
+      "image": "https://i.imgur.com/2Wa30AL.jpg",
+      "content": "GUILD RIDDLE PARTY in 15 minutes."
+    }, "09:00PM": {
+      "title": "SKY ARENA",
+      "image": "https://i.imgur.com/ucfNiXe.jpg",
+      "content": "Create a team of 3 members and join SKY ARENA in 15 minutes."
+    }, "11:00PM": {
+      "title": "HORSE RACING",
+      "image": "https://i.imgur.com/qThpHAa.jpg",
+      "content": "Giddy up! Horse racing starts in 15 minutes."
+    }
+  },
+  "2": {
+    "Reset": {
+      "content": "**GUILD ARENA TONIGHT AT 9PM.**\nPM any of the officers if you want to enlist.\n\n**Mechanics**\n- A 6-person PVP. 3 rounds.\n- Every round, you are given few minutes to deploy 6 members. Everyone who is online can deploy themselves.\n- Once the 6 slots are full, you cannot join anymore until the next round.\n-You cannot deploy again once you already deployed in a previous round.\n- Each round win is 10 points (max 30 points per matchup).\n- At the end of 2 weeks (4 matchups), the top 8 guilds with the most points gets into the championship on Saturday."
+    }, "Hourly": {
+      "title": "GUILD ARENA",
+      "image": "https://i.imgur.com/UH2fTSY.jpg",
+      "content": "**Join Guild Arena tonight at 9PM (PH TIME)!** PM any of the officers if you want to join!",
+      "timerange": "9-20"
+    }, "01:00PM": {
+      "title": "RIDDLE PARTY",
+      "image": "https://i.imgur.com/2Wa30AL.jpg",
+      "content": "RIDDLE PARTY in 15 minutes."
+    }, "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD BOSS",
+      "image": "https://i.imgur.com/CRd3VRR.jpg",
+      "content": "GUILD BOSS is starting in 15 minutes. Check your skills and fairies, eat food for buffs, and get ready yourself ready."
+    }, "09:00PM": {
+      "title": "GUILD ARENA",
+      "image": "https://i.imgur.com/UH2fTSY.jpg",
+      "content": "GUILD ARENA starting in 15 minutes. Gear up and kill them all! Watch as our lineup destroys the opposing guild."
+    }
+  },
+  "3": {
+    "Reset": {
+      "content": "**DRAGON LAIRS HAVE BEEN RESET.**"
+    }, "01:00PM": {
+      "title": "HORSE RACING",
+      "image": "https://i.imgur.com/qThpHAa.jpg",
+      "content": "Giddy up! Horse racing starts in 15 minutes."
+    }, "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    }, "07:00PM": {
+      "title": "HORSE RACING",
+      "image": "https://i.imgur.com/qThpHAa.jpg",
+      "content": "Giddy up! Horse racing starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD POKER",
+      "image": "https://i.imgur.com/yum49ul.jpg",
+      "content": "GUILD POKER starts in 15 minutes. Go all in and become the poker king!"
+    }, "09:00PM": {
+      "title": "CLASH OF MINES",
+      "image": "https://i.imgur.com/ZwhIB6n.png",
+      "content": "CLASH OF MINES starts in 15 minutes."
+
+    }, "11:00PM": {
+      "title": "HORSE RACING",
+      "image": "https://i.imgur.com/qThpHAa.jpg",
+      "content": "Giddy up! Horse racing starts in 15 minutes."
+    }
+  }, 
+  "4": {
+    "Reset": {
+      "content": "**GUILD ARENA TONIGHT AT 9PM.**\nPM any of the officers if you want to enlist.\n\n**Mechanics**\n- A 6-person PVP. 3 rounds.\n- Every round, you are given few minutes to deploy 6 members. Everyone who is online can deploy themselves.\n- Once the 6 slots are full, you cannot join anymore until the next round.\n-You cannot deploy again once you already deployed in a previous round.\n- Each round win is 10 points (max 30 points per matchup).\n- At the end of 2 weeks (4 matchups), the top 8 guilds with the most points gets into the championship on Saturday."
+    }, "Hourly": {
+      "title": "GUILD ARENA",
+      "image": "https://i.imgur.com/UH2fTSY.jpg",
+      "content": "**Join Guild Arena tonight at 9PM (PH TIME)!** PM any of the officers if you want to join!",
+      "timerange": "9-20"
+    }, "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD BOSS",
+      "image": "https://i.imgur.com/CRd3VRR.jpg",
+      "content": "GUILD BOSS is starting in 15 minutes. Check your skills and fairies, eat food for buffs, and get ready yourself ready."
+    }, "09:00PM": {
+      "title": "GUILD ARENA",
+      "image": "https://i.imgur.com/UH2fTSY.jpg",
+      "content": "GUILD ARENA starting in 15 minutes. Gear up and kill them all! Watch as our lineup destroys the opposing guild."
+    }
+  },
+  "5": {
+    "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD CAMP PARTY",
+      "image": "https://i.imgur.com/C5Wq7Vy.jpg",
+      "content": "Trade cards and earn lots of prizes. GUILD CAMP PARTY starts in 15 minutes."
+    }
+  },
+  "6": {
+    "Reset": {
+      "content": "**DRAGON LAIRS HAVE BEEN RESET.**"
+    }, "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD BOSS",
+      "image": "https://i.imgur.com/CRd3VRR.jpg",
+      "content": "GUILD BOSS is starting in 15 minutes. Check your skills and fairies, eat food for buffs, and get ready yourself ready."
+    }
+  },
+  "7": {
+    "01:30PM": {
+      "title": "WORLD BOSS",	
+      "content": "World boss starts in 15 minutes."
+    }, "08:30PM": {
+      "title": "GUILD POKER",
+      "image": "https://i.imgur.com/yum49ul.jpg",
+      "content": "GUILD POKER starts in 15 minutes. Go all in and become the poker king!"
+    }, "09:00PM": {
+      "title": "GUILD TERRITORY WAR",
+      "image": "https://i.imgur.com/N9tu4ri.jpg",
+      "content": "GUILD TERRITORY WAR starts in 15 minutes. Expand your territory and rule Saint Haven!"
+    }
+  }
+}
